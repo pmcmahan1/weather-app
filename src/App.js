@@ -22,7 +22,9 @@ function App() {
 
   const [data, setData] = useState("");
   const [timeData, setTimeData] = useState("");
+  const [nightTime, setNightTime] = useState(false)
   const bogus = DateTime.local().setZone(timeData.timeZoneId).toFormat("hh:mm a");
+  const bogusInfo = DateTime.local().setZone(timeData.timeZoneId)
 
 
   const handleSelect = async (value) => {
@@ -45,6 +47,14 @@ function App() {
     }
   }, [coordinates]);
 
+  useEffect(() => {
+    if (bogusInfo?.hour > 7 && bogusInfo.hour < 17) {
+      setNightTime(false)
+    } else {
+      setNightTime(true)
+    }
+  }, [bogusInfo])
+
 
 
   return (
@@ -66,6 +76,7 @@ function App() {
       {data.main ? <p>humidity: {data.main.humidity}%</p> : <p>humidity: </p>}
       {data.wind ? <p>wind: {data.wind.speed}mph</p> : <p>wind: </p>}
       {data.main ? <p>local time: {bogus}</p> : <p>local time: </p>}
+      {nightTime === true ? <p>Night time</p> : <p>Day time</p>}
 
       <PlacesAutocomplete
         value={address}
