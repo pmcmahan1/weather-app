@@ -1,0 +1,14 @@
+.hourly-container{
+    display: flex;
+    overflow: auto;
+    min-height: 62px;
+    gap: 5px;
+
+    .hourly-item{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 10px;
+        flex-shrink: 0;
+    }
+}

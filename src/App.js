@@ -5,27 +5,27 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 import { DateTime } from "luxon";
+import HourlyTime from "./HourlyTime";
+import Daily from "./Daily";
+
 
 function App() {
+
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null,
   });
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lng}&appid=${process.env.REACT_APP_API_KEY}&units=imperial`;
-  const timeUrl = ` https://maps.googleapis.com/maps/api/timezone/json?location=${
-    coordinates.lat
-  }%2C${coordinates.lng}&timestamp=${Math.round(
-    new Date().getTime() / 1000
-  ).toString()}&key=${process.env.REACT_APP_API_TZ_KEY}`;
+  const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&appid=${process.env.REACT_APP_API_KEY}&units=imperial`;
+
 
   const [data, setData] = useState("");
-  const [timeData, setTimeData] = useState("");
   const [nightTime, setNightTime] = useState(false)
-  const bogus = DateTime.local().setZone(timeData.timeZoneId).toFormat("hh:mm a");
-  const bogusInfo = DateTime.local().setZone(timeData.timeZoneId)
+  const localTime = DateTime.local().setZone(data.timezone).toFormat("h:mm a");
+  const localTimeInfo = DateTime.local().setZone(data.timezone)
 
+console.log(data)
 
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
@@ -39,44 +39,45 @@ function App() {
       axios.get(url).then((response) => {
         setData(response.data);
       });
-      axios.get(timeUrl).then((response) => {
-        setTimeData(response.data);
-      });
     } else {
       return;
     }
   }, [coordinates]);
 
   useEffect(() => {
-    if (bogusInfo?.hour > 7 && bogusInfo.hour < 17) {
+    if (localTimeInfo.hour >= 8 && localTimeInfo.hour <= 19) {
       setNightTime(false)
     } else {
       setNightTime(true)
     }
-  }, [bogusInfo])
-
+  }, [localTimeInfo.hour])
 
 
   return (
     <div className="app">
+      <HourlyTime data={data} />
+      <Daily data={data} />
       <p>lat: {coordinates.lat}</p>
       <p>long: {coordinates.lng}</p>
-      <p>city: {data.name}</p>
-      {data.main ? <p>temp: {data.main.temp}°F</p> : <p>temp: </p>}
-      {data.main ? (
-        <p>feels like: {data.main.feels_like}°F</p>
+      <p>address: {address}</p>
+      {data.current ? <p>temp: {Math.round(data.current.temp)}°</p> : <p>temp: </p>}
+      {data.current ? (
+        <p>feels like: {Math.round(data.current.feels_like)}°</p>
       ) : (
         <p>feels like: </p>
       )}
-      {data.weather ? (
-        <p>condition: {data.weather[0].main}</p>
+      {data.current ? (
+        <p>condition: {data.current.weather[0].main}</p>
       ) : (
         <p>condition: </p>
       )}
-      {data.main ? <p>humidity: {data.main.humidity}%</p> : <p>humidity: </p>}
-      {data.wind ? <p>wind: {data.wind.speed}mph</p> : <p>wind: </p>}
-      {data.main ? <p>local time: {bogus}</p> : <p>local time: </p>}
+      {data.current ? <p>humidity: {data.current.humidity}%</p> : <p>humidity: </p>}
+      {data.current ? <p>wind: {data.current.wind_speed}mph</p> : <p>wind: </p>}
+      {data.current ? <p>local time: {localTime}</p> : <p>local time: </p>}
       {nightTime === true ? <p>Night time</p> : <p>Day time</p>}
+      {data.current ? <p>min: {Math.round(data.daily[0].temp.min)}° max: {Math.round(data.daily[0].temp.max)}° </p> : <p>min: max: </p>}
+
+
 
       <PlacesAutocomplete
         value={address}
