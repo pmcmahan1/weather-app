@@ -3,7 +3,6 @@
     overflow: auto;
     min-height: 62px;
     gap: 10px;
-    border-radius: 25px;
 
 
     .hourly-item{
@@ -13,5 +12,7 @@
         padding: 20px 10px;
         flex-shrink: 0;
         min-width: 62px;
+        font-size: 22px;
+        font-weight: 500;
     }
 }
