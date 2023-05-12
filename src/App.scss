@@ -1,17 +1,38 @@
+.app{
+    height: 100vh;
+    background-size: cover;
+    color: white;
+}
 
 .search{
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    padding-top: 15px;
+
 
     input{
         width: 50%;
-        padding: 8px 24px;
+        padding: 14px 28px;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+
+        color: black;
+    }
+
+    input:focus{
+        outline-width: 0;
+    }
+
+    input::placeholder{
+        color: black;
     }
 }
 
 .autocomplete-dropdown-container{
     position: absolute;
+    top: 45px;
+    color: black;
 }
 
 
@@ -20,9 +41,10 @@
     justify-content: center;
     align-items: center;
     font-size: 32px;
-    font-weight: 500;
+    font-weight: 600;
     min-height: 37px;
     padding: 10px;
+    margin: 15px 0px;
 
     .loc-item{
         flex: 1;
@@ -34,8 +56,8 @@
 .temp-container{
     display: flex;
     justify-content: center;
-    font-size: 62px;
-    font-weight: 500;
+    font-size: 82px;
+    font-weight: 700;
     margin-top: 10px;
     margin-bottom: -10px;
 }
@@ -43,19 +65,20 @@
 .feels-container{
     display: flex;
     justify-content: center;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 400;
     margin-bottom: -5px;
+    margin-top: 5px;
 }
 
 .sun-container{
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 24px;
+    font-weight: 500;
     min-height: 37px;
-    margin-top: 10px;
+    margin-top: 15px;
 
     .sun-item{
         flex: 1;
@@ -67,7 +90,10 @@
 .title {
     display: flex;
     justify-content: center;
-    font-size: 28px;
-    margin-top: 20px;
+    font-size: 32px;
+    margin-top: 15px;
 }
 
+.title-top {
+    margin-top: 55px;
+}

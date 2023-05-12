@@ -7,7 +7,8 @@ import PlacesAutocomplete, {
 import { DateTime } from "luxon";
 import Hourly from "./Hourly";
 import Daily from "./Daily";
-import Icon from "./Icon";
+import darkBg from "./dark-bg.jpg"
+import lightBg from "./light-bg.jpg"
 import "./App.scss";
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
     }
   }, [coordinates]);
 
+  console.log(localTimeInfo.hour)
+
   useEffect(() => {
     if (localTimeInfo.hour >= 8 && localTimeInfo.hour <= 19) {
       setNightTime(false);
@@ -51,7 +54,9 @@ function App() {
   }, [localTimeInfo.hour]);
 
   return (
-    <div className="app">
+    <div className="app" 
+    style={ nightTime === true ? { backgroundImage:`url(${darkBg})` } : {backgroundImage:`url(${lightBg})`}}
+    >
       <PlacesAutocomplete
         value={address}
         onChange={setAddress}
@@ -73,7 +78,7 @@ function App() {
                   : "suggestion-item";
                 // inline style for demonstration purpose
                 const style = suggestion.active
-                  ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                  ? { backgroundColor: "black", cursor: "pointer" }
                   : { backgroundColor: "#ffffff", cursor: "pointer" };
                 return (
                   <div
@@ -93,52 +98,52 @@ function App() {
       <div className="loc-container">
               <div className="loc-item">
                 <div className="loc-text">
-                  {`${address.substring(0, 15)}${address.length > 15 ? '…' : ""}`}
+                  {`${address.substring(0, 15)}${address.length > 15 ? '…' : "…"}`}
                 </div>
               </div>
               <div className="loc-item">
                 <div className="loc-text">
-                {data.current ? <div>{localTime}</div> : <div></div>}
+                {data.current ? <div>{localTime}</div> : <div>0:00</div>}
                 </div>
               </div>
       </div>
       <div className="temp-container">
         <div>
-        {data.current ? Math.round(data.current.temp) + "°" : ""}
+        {data.current ? Math.round(data.current.temp) + "°" : "0°"}
         </div>
       </div>
       <div className="feels-container">
         <div>
-          {data.current ? "feels like: " + Math.round(data.current.feels_like) + "°" : ""}
+          {data.current ? "feels like: " + Math.round(data.current.feels_like) + "°" : "Feels Like: "}
         </div>
       </div>
       <div className="feels-container">
         <div>
-          {data.current ? data.current.weather[0].main : ""}
+          {data.current ? data.current.weather[0].main : "Condition"}
         </div>
       </div>
       <div className="feels-container">
         <div>
-          {data.current ? `H: ${Math.round(data.daily[0].temp.max)}° L: ${Math.round(data.daily[0].temp.min)}°` : ""}
+          {data.current ? `H: ${Math.round(data.daily[0].temp.max)}° L: ${Math.round(data.daily[0].temp.min)}°` : "H: ° L: °"}
         </div>
       </div>
       <div className="sun-container">
         <div className="sun-item">
-          {data.current ? `sunrise: ${DateTime.fromSeconds(data.current.sunrise).toFormat("h:mm a")}` : ""}
+          {data.current ? `sunrise: ${DateTime.fromSeconds(data.current.sunrise).toFormat("h:mm a")}` : "sunrise: "}
         </div>
         <div className="sun-item">
-        {data.current ? `sunset: ${DateTime.fromSeconds(data.current.sunset).toFormat("h:mm a")}` : ""}
+        {data.current ? `sunset: ${DateTime.fromSeconds(data.current.sunset).toFormat("h:mm a")}` : "sunset: "}
         </div>
       </div>
       <div className="sun-container">
         <div className="sun-item">
-          {data.current ? `humidity: ${data.current.humidity}%` : ""}
+          {data.current ? `humidity: ${data.current.humidity}%` : "humidity: "}
         </div>
         <div className="sun-item">
-        {data.current ? `wind: ${data.current.wind_speed} mph` : ""}
+        {data.current ? `wind: ${data.current.wind_speed} mph` : "wind: "}
         </div>
       </div>
-      <div className="title">Hourly Forecast</div>
+      <div className="title title-top">Hourly Forecast</div>
       <Hourly data={data} />
       <div className="title"> Daily Forecast</div>
       <Daily data={data} />  
