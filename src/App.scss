@@ -45,7 +45,7 @@
     font-weight: 600;
     min-height: 37px;
     padding: 10px;
-    margin: 15px 0px;
+    margin-top: 15px;
 
     .loc-item{
         flex: 1;
@@ -91,12 +91,12 @@
     display: flex;
     justify-content: center;
     font-size: 32px;
-    margin-top: 15px;
+    margin-top: 12px;
     font-weight: 500;
 }
 
 .title-top {
-    margin-top: 55px;
+    margin-top: 40px;
 }
 
 ::-webkit-scrollbar {
