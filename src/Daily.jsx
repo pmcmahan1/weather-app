@@ -7,8 +7,8 @@ const Daily = (props) => {
     <>
     <div className='daily-container'>
     <div className="daily-item">
-            <div>{props.data ? "Today" : "null"}</div>
-            <div>{props.data ? Math.round(props.data.daily[0].temp.day) + "°" : "null"}</div>
+            <div>{props.data ? "Today" : null}</div>
+            <div>{props.data ? Math.round(props.data.daily[0].temp.day) + "°" : null}</div>
         </div>
         <div className="daily-item">
             <div>{props.data ? DateTime.local().plus({ days: 1 }).setZone(props.data.timezone).toFormat("EEE") : null}</div>
