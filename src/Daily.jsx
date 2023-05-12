@@ -5,7 +5,6 @@ import { DateTime } from "luxon";
 const Daily = (props) => {
   return (
     <>
-    <div className="daily-title">Daily Forecast</div>
     <div className='daily-container'>
     <div className="daily-item">
             <div>{props.data ? "Today" : null}</div>

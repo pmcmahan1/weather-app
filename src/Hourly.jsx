@@ -1,11 +1,10 @@
 import React from 'react'
 import { DateTime } from "luxon";
-import './HourlyTime.scss'
+import './Hourly.scss'
 
-const HourlyTime = (props) => {
+const Hourly = (props) => {
   return (
     <>
-    <div className="hourly-title">Hourly Report</div>
     <div className='hourly-container'>
     <div className="hourly-item">
             <div>{props.data ? "Now" : null}</div>
@@ -64,4 +63,4 @@ const HourlyTime = (props) => {
   )
 }
 
-export default HourlyTime
+export default Hourly

@@ -2,13 +2,17 @@
     display: flex;
     overflow: auto;
     min-height: 62px;
-    gap: 15px;
+    gap: 10px;
+    background-color: lightblue;
+    border-radius: 25px;
 
     .daily-item{
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 20px 10px;
+        padding: 20px 10px;
         flex-shrink: 0;
+        min-width: 62px;
+        
     }
 }
