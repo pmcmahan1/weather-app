@@ -135,14 +135,14 @@ function App() {
       <div className="sun-container">
         <div className="sun-item">
           {data.current
-            ? `Sunrise: ${DateTime.fromSeconds(data.current.sunrise).toFormat(
+            ? `Sunrise: ${DateTime.fromSeconds(data.current.sunrise).setZone(data.timezone).toFormat(
                 "h:mm a"
               )}`
             : "Sunrise: "}
         </div>
         <div className="sun-item">
           {data.current
-            ? `Sunset: ${DateTime.fromSeconds(data.current.sunset).toFormat(
+            ? `Sunset: ${DateTime.fromSeconds(data.current.sunset).setZone(data.timezone).toFormat(
                 "h:mm a"
               )}`
             : "Sunset: "}
