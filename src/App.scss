@@ -27,15 +27,18 @@ html,body {
         outline-width: 0;
     }
 
-    input::placeholder{
-        color: black;
-    }
 }
 
 .autocomplete-dropdown-container{
     position: absolute;
-    top: 45px;
+    top: 65px;
     color: black;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.autocomplete-dropdown-container:hover{
+    cursor: pointer;
 }
 
 

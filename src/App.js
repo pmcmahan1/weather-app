@@ -7,8 +7,8 @@ import PlacesAutocomplete, {
 import { DateTime } from "luxon";
 import Hourly from "./Hourly";
 import Daily from "./Daily";
-import darkBg from "./dark-bg.jpg"
-import lightBg from "./light-bg.jpg"
+import darkBg from "./dark-bg.jpg";
+import lightBg from "./light-bg.jpg";
 import "./App.scss";
 
 function App() {
@@ -24,7 +24,6 @@ function App() {
   const [nightTime, setNightTime] = useState(false);
   const localTime = DateTime.local().setZone(data.timezone).toFormat("h:mm a");
   const localTimeInfo = DateTime.local().setZone(data.timezone);
-
 
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
@@ -43,7 +42,7 @@ function App() {
     }
   }, [coordinates]);
 
-  console.log(localTimeInfo.hour)
+  console.log(localTimeInfo.hour);
 
   useEffect(() => {
     if (localTimeInfo.hour >= 8 && localTimeInfo.hour <= 19) {
@@ -54,8 +53,13 @@ function App() {
   }, [localTimeInfo.hour]);
 
   return (
-    <div className="app" 
-    style={ nightTime === true ? { backgroundImage:`url(${darkBg})` } : {backgroundImage:`url(${lightBg})`}}
+    <div
+      className="app"
+      style={
+        nightTime === true
+          ? { backgroundImage: `url(${darkBg})` }
+          : { backgroundImage: `url(${lightBg})` }
+      }
     >
       <PlacesAutocomplete
         value={address}
@@ -77,14 +81,11 @@ function App() {
                   ? "suggestion-item--active"
                   : "suggestion-item";
                 // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: "black", cursor: "pointer" }
-                  : { backgroundColor: "#ffffff", cursor: "pointer" };
+
                 return (
                   <div
                     {...getSuggestionItemProps(suggestion, {
                       className,
-                      style,
                     })}
                   >
                     <span>{suggestion.description}</span>
@@ -96,43 +97,53 @@ function App() {
         )}
       </PlacesAutocomplete>
       <div className="loc-container">
-              <div className="loc-item">
-                <div className="loc-text">
-                  {`${address.substring(0, 15)}${address.length > 15 ? '…' : "…"}`}
-                </div>
-              </div>
-              <div className="loc-item">
-                <div className="loc-text">
-                {data.current ? <div>{localTime}</div> : <div>0:00</div>}
-                </div>
-              </div>
+        <div className="loc-item">
+          <div className="loc-text">
+            {`${address.substring(0, 15)}${address.length > 15 ? "…" : "…"}`}
+          </div>
+        </div>
+        <div className="loc-item">
+          <div className="loc-text">
+            {data.current ? <div>{localTime}</div> : <div>0:00</div>}
+          </div>
+        </div>
       </div>
       <div className="temp-container">
-        <div>
-        {data.current ? Math.round(data.current.temp) + "°" : "0°"}
-        </div>
+        <div>{data.current ? Math.round(data.current.temp) + "°" : "0°"}</div>
       </div>
       <div className="feels-container">
         <div>
-          {data.current ? "feels like: " + Math.round(data.current.feels_like) + "°" : "Feels Like: "}
+          {data.current
+            ? "feels like: " + Math.round(data.current.feels_like) + "°"
+            : "Feels Like: "}
         </div>
       </div>
       <div className="feels-container">
-        <div>
-          {data.current ? data.current.weather[0].main : "Condition"}
-        </div>
+        <div>{data.current ? data.current.weather[0].main : "Condition"}</div>
       </div>
       <div className="feels-container">
         <div>
-          {data.current ? `H: ${Math.round(data.daily[0].temp.max)}° L: ${Math.round(data.daily[0].temp.min)}°` : "H: ° L: °"}
+          {data.current
+            ? `H: ${Math.round(data.daily[0].temp.max)}° L: ${Math.round(
+                data.daily[0].temp.min
+              )}°`
+            : "H: ° L: °"}
         </div>
       </div>
       <div className="sun-container">
         <div className="sun-item">
-          {data.current ? `sunrise: ${DateTime.fromSeconds(data.current.sunrise).toFormat("h:mm a")}` : "sunrise: "}
+          {data.current
+            ? `sunrise: ${DateTime.fromSeconds(data.current.sunrise).toFormat(
+                "h:mm a"
+              )}`
+            : "sunrise: "}
         </div>
         <div className="sun-item">
-        {data.current ? `sunset: ${DateTime.fromSeconds(data.current.sunset).toFormat("h:mm a")}` : "sunset: "}
+          {data.current
+            ? `sunset: ${DateTime.fromSeconds(data.current.sunset).toFormat(
+                "h:mm a"
+              )}`
+            : "sunset: "}
         </div>
       </div>
       <div className="sun-container">
@@ -140,21 +151,21 @@ function App() {
           {data.current ? `humidity: ${data.current.humidity}%` : "humidity: "}
         </div>
         <div className="sun-item">
-        {data.current ? `wind: ${data.current.wind_speed} mph` : "wind: "}
+          {data.current ? `wind: ${data.current.wind_speed} mph` : "wind: "}
         </div>
       </div>
       <div className="title title-top">Hourly Forecast</div>
       <Hourly data={data} />
       <div className="title"> Daily Forecast</div>
-      <Daily data={data} />  
+      <Daily data={data} />
     </div>
   );
 }
 
 export default App;
 
-
-{/* 
+{
+  /* 
 
       <p>lat: {coordinates.lat}</p>
       <p>long: {coordinates.lng}</p>
@@ -206,5 +217,5 @@ export default App;
         <p>sunset: </p>
       )}
       <Hourly data={data} />
-      <Daily data={data} />     */}  
-
+      <Daily data={data} />     */
+}
