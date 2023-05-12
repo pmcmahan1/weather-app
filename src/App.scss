@@ -57,6 +57,11 @@ html,body {
         flex: 1;
         overflow: hidden;
         text-align: center;
+
+        .loc-text{
+            font-size: 18px;
+            text-align: start;
+        }
     }
 }
 
@@ -108,3 +113,4 @@ html,body {
 ::-webkit-scrollbar {
     display: none;
 }
+

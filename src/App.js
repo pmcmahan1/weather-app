@@ -99,22 +99,23 @@ function App() {
       <div className="loc-container">
         <div className="loc-item">
           <div className="loc-text">
-            {`${address.substring(0, 15)}${address.length > 15 ? "…" : "…"}`}
+            {data.current ? address : "…"}
           </div>
         </div>
         <div className="loc-item">
-          <div className="loc-text">
+          <div>
             {data.current ? <div>{localTime}</div> : <div>0:00</div>}
           </div>
         </div>
       </div>
+      <div className="main-container">
       <div className="temp-container">
         <div>{data.current ? Math.round(data.current.temp) + "°" : "0°"}</div>
       </div>
       <div className="feels-container">
         <div>
           {data.current
-            ? "feels like: " + Math.round(data.current.feels_like) + "°"
+            ? "Feels Like: " + Math.round(data.current.feels_like) + "°"
             : "Feels Like: "}
         </div>
       </div>
@@ -130,28 +131,29 @@ function App() {
             : "H: ° L: °"}
         </div>
       </div>
+      </div>
       <div className="sun-container">
         <div className="sun-item">
           {data.current
-            ? `sunrise: ${DateTime.fromSeconds(data.current.sunrise).toFormat(
+            ? `Sunrise: ${DateTime.fromSeconds(data.current.sunrise).toFormat(
                 "h:mm a"
               )}`
-            : "sunrise: "}
+            : "Sunrise: "}
         </div>
         <div className="sun-item">
           {data.current
-            ? `sunset: ${DateTime.fromSeconds(data.current.sunset).toFormat(
+            ? `Sunset: ${DateTime.fromSeconds(data.current.sunset).toFormat(
                 "h:mm a"
               )}`
-            : "sunset: "}
+            : "Sunset: "}
         </div>
       </div>
       <div className="sun-container">
         <div className="sun-item">
-          {data.current ? `humidity: ${data.current.humidity}%` : "humidity: "}
+          {data.current ? `Humidity: ${data.current.humidity}%` : "Humidity: "}
         </div>
         <div className="sun-item">
-          {data.current ? `wind: ${data.current.wind_speed} mph` : "wind: "}
+          {data.current ? `Wind: ${data.current.wind_speed} mph` : "Wind: "}
         </div>
       </div>
       <div className="title title-top">Hourly Forecast</div>
@@ -167,6 +169,7 @@ export default App;
 {
   /* 
 
+              {`${address.substring(0, 25)}${address.length > 25 ? "…" : "…"}`}
       <p>lat: {coordinates.lat}</p>
       <p>long: {coordinates.lng}</p>
       <p>address: {address}</p>
